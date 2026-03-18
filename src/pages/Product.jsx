@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiCheckCircle, FiShield, FiMinus, FiPlus, FiShoppingBag } from 'react-icons/fi';
+import { useCart } from '../context/CartContext';
 
 const Product = () => {
     const { id } = useParams();
     const [quantity, setQuantity] = useState(1);
+    const { addToCart } = useCart();
 
     // Mock product data based on ID
     const products = {
@@ -110,11 +112,20 @@ const Product = () => {
                                 <FiPlus />
                             </button>
                         </div>
-                        <Link to="/checkout" style={{ flexGrow: 1 }}>
-                            <button className="btn-primary" style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', fontSize: '1.1rem' }}>
-                                <FiShoppingBag size={20} /> Buy Now
+                        <div style={{ flexGrow: 1, display: 'flex', gap: '10px' }}>
+                            <button 
+                                className="btn-primary" 
+                                style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', fontSize: '1.1rem', backgroundColor: 'var(--surface-color)', color: '#fff' }}
+                                onClick={() => addToCart({ id: id || '1', name: product.name, price: product.price, image: product.image, category: product.category }, quantity)}
+                            >
+                                <FiShoppingBag size={20} /> Add to Cart
                             </button>
-                        </Link>
+                            <Link to="/checkout" style={{ flex: 1 }} onClick={() => addToCart({ id: id || '1', name: product.name, price: product.price, image: product.image, category: product.category }, quantity)}>
+                                <button className="btn-primary" style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', fontSize: '1.1rem' }}>
+                                    Buy Now
+                                </button>
+                            </Link>
+                        </div>
                     </div>
 
                     {/* Trust section per instructions */}

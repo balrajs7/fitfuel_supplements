@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiLock, FiCheck, FiTruck, FiCreditCard } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 const Checkout = () => {
     const [complete, setComplete] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState('upi');
+    const { cart, cartTotal, clearCart } = useCart();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setComplete(true);
+        clearCart();
     };
 
     if (complete) {
@@ -152,33 +156,57 @@ const Checkout = () => {
                     }}>
                         <h3 style={{ marginBottom: '20px', paddingBottom: '15px', borderBottom: '1px solid var(--surface-color-light)' }}>Order Summary</h3>
 
-                        {/* Mock Item */}
-                        <div style={{ display: 'flex', gap: '15px', marginBottom: '20px' }}>
-                            <div style={{ width: '60px', height: '60px', backgroundColor: '#000', borderRadius: 'var(--border-radius-sm)', padding: '5px' }}>
-                                <img src="/product_whey_1772941267798.png" alt="Whey" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                        {cart.length === 0 ? (
+                            <div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '20px 0' }}>
+                                <p>Your cart is empty.</p>
+                                <button className="btn-secondary" onClick={() => navigate('/')} style={{ marginTop: '10px' }}>Continue Shopping</button>
                             </div>
-                            <div style={{ flexGrow: 1 }}>
-                                <h5 style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-primary)' }}>Optimum Nutrition Whey...</h5>
-                                <p style={{ margin: '5px 0 0 0', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Qty: 1</p>
-                            </div>
-                            <div style={{ fontWeight: 'bold' }}>₹6,899</div>
-                        </div>
+                        ) : (
+                            <>
+                                <div style={{ maxHeight: '300px', overflowY: 'auto', marginBottom: '20px', paddingRight: '10px' }}>
+                                    {cart.map((item) => (
+                                        <div key={item.id} style={{ display: 'flex', gap: '15px', marginBottom: '15px' }}>
+                                            <div style={{ width: '60px', height: '60px', backgroundColor: '#000', borderRadius: 'var(--border-radius-sm)', padding: '5px', flexShrink: 0 }}>
+                                                <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                            </div>
+                                            <div style={{ flexGrow: 1 }}>
+                                                <h5 style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-primary)', lineHeight: '1.2' }}>{item.name}</h5>
+                                                <p style={{ margin: '5px 0 0 0', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Qty: {item.quantity}</p>
+                                            </div>
+                                            <div style={{ fontWeight: 'bold' }}>₹{(item.price * item.quantity).toLocaleString('en-IN')}</div>
+                                        </div>
+                                    ))}
+                                </div>
 
-                        {/* Price Calculations */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', color: 'var(--text-secondary)' }}>
-                            <span>Subtotal</span>
-                            <span>₹6,899</span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', color: 'var(--text-secondary)' }}>
-                            <span>Shipping</span>
-                            <span style={{ color: 'var(--accent-green)' }}>FREE</span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', margin: '20px 0', paddingTop: '15px', borderTop: '1px solid var(--surface-color-light)', fontSize: '1.3rem', fontWeight: 800 }}>
-                            <span>Total</span>
-                            <span style={{ color: 'var(--accent-orange)' }}>₹6,899</span>
-                        </div>
+                                {/* Price Calculations */}
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', color: 'var(--text-secondary)' }}>
+                                    <span>Subtotal</span>
+                                    <span>₹{cartTotal.toLocaleString('en-IN')}</span>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', color: 'var(--text-secondary)' }}>
+                                    <span>Shipping</span>
+                                    <span style={{ color: 'var(--accent-green)' }}>FREE</span>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', margin: '20px 0', paddingTop: '15px', borderTop: '1px solid var(--surface-color-light)', fontSize: '1.3rem', fontWeight: 800 }}>
+                                    <span>Total</span>
+                                    <span style={{ color: 'var(--accent-orange)' }}>₹{cartTotal.toLocaleString('en-IN')}</span>
+                                </div>
+                            </>
+                        )}
 
-                        <button type="submit" form="checkout-form" className="btn-primary" style={{ width: '100%', height: '50px', fontSize: '1.1rem' }}>
+                        <button 
+                            type="submit" 
+                            form="checkout-form" 
+                            className="btn-primary" 
+                            style={{ 
+                                width: '100%', 
+                                height: '50px', 
+                                fontSize: '1.1rem',
+                                opacity: cart.length === 0 ? 0.5 : 1,
+                                cursor: cart.length === 0 ? 'not-allowed' : 'pointer'
+                            }} 
+                            disabled={cart.length === 0}
+                        >
                             Complete Purchase
                         </button>
 

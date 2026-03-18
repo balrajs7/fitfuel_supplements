@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { FiShoppingBag } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 const ProductCard = ({ id, name, price, image, category }) => {
+    const { addToCart } = useCart();
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -76,14 +79,17 @@ const ProductCard = ({ id, name, price, image, category }) => {
                         width: '100%',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '8px',
-                        fontSize: '0.9rem'
-                    }}
-                    onClick={() => alert('Added to cart mock')}
-                >
-                    <FiShoppingBag /> Add to Cart
-                </button>
+                    justifyContent: 'center',
+                    gap: '8px',
+                    fontSize: '0.9rem'
+                }}
+                onClick={(e) => {
+                    e.preventDefault();
+                    addToCart({ id, name, price, image, category });
+                }}
+            >
+                <FiShoppingBag /> Add to Cart
+            </button>
             </div>
         </motion.div>
     );

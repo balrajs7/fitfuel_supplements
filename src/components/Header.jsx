@@ -2,9 +2,11 @@ import { Link } from 'react-router-dom';
 import { FiShoppingCart, FiMenu } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useCart } from '../context/CartContext';
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const { cartCount, setIsSidebarOpen } = useCart();
 
     return (
         <header style={{
@@ -57,24 +59,29 @@ const Header = () => {
 
                 {/* Mobile Nav Toggle */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                    <Link to="/checkout" style={{ position: 'relative' }}>
+                    <div 
+                        onClick={() => setIsSidebarOpen(true)} 
+                        style={{ position: 'relative', cursor: 'pointer' }}
+                    >
                         <FiShoppingCart size={24} color="var(--text-primary)" />
-                        <span style={{
-                            position: 'absolute',
-                            top: '-8px',
-                            right: '-8px',
-                            backgroundColor: 'var(--accent-orange)',
-                            color: '#000',
-                            fontWeight: 800,
-                            fontSize: '0.7rem',
-                            width: '18px',
-                            height: '18px',
-                            borderRadius: '50%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}>2</span>
-                    </Link>
+                        {cartCount > 0 && (
+                            <span style={{
+                                position: 'absolute',
+                                top: '-8px',
+                                right: '-8px',
+                                backgroundColor: 'var(--accent-orange)',
+                                color: '#000',
+                                fontWeight: 800,
+                                fontSize: '0.7rem',
+                                width: '18px',
+                                height: '18px',
+                                borderRadius: '50%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>{cartCount}</span>
+                        )}
+                    </div>
                     <button
                         className="mobile-menu-btn"
                         style={{ background: 'none', color: 'var(--text-primary)', padding: 0 }}
