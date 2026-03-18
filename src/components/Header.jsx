@@ -49,9 +49,9 @@ const Header = () => {
                         letterSpacing: '1px'
                     }}>
                         <li><Link to="/" style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--accent-green)'} onMouseOut={e => e.target.style.color = 'inherit'}>Shop All</Link></li>
-                        <li><a href="#categories" style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--accent-green)'} onMouseOut={e => e.target.style.color = 'inherit'}>Categories</a></li>
+                        <li><a href="/#categories" style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--accent-green)'} onMouseOut={e => e.target.style.color = 'inherit'}>Categories</a></li>
                         <li><Link to="/track-order" style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--accent-orange)'} onMouseOut={e => e.target.style.color = 'inherit'}>Track Order</Link></li>
-                        <li><a href="#" style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--accent-green)'} onMouseOut={e => e.target.style.color = 'inherit'}>Contact</a></li>
+                        <li><a href="#contact" style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--accent-green)'} onMouseOut={e => e.target.style.color = 'inherit'}>Contact</a></li>
                     </ul>
                 </nav>
 

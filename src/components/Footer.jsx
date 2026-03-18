@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
-        <footer style={{
+        <footer id="contact" style={{
             backgroundColor: 'var(--surface-color)',
             padding: '60px 0 20px 0',
             borderTop: '1px solid var(--surface-color-light)',
@@ -37,11 +37,11 @@ const Footer = () => {
                     <h3 style={{ marginBottom: '20px', fontSize: '1.2rem', color: 'var(--text-primary)' }}>Quick Links</h3>
                     <ul style={{ listStyle: 'none', padding: 0, color: 'var(--text-secondary)' }}>
                         <li style={{ marginBottom: '10px' }}><Link to="/track-order" style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--accent-green)'} onMouseOut={e => e.target.style.color = 'inherit'}>Track Order</Link></li>
-                        <li style={{ marginBottom: '10px' }}><a href="#">About Us</a></li>
-                        <li style={{ marginBottom: '10px' }}><a href="#">Refund Policy</a></li>
-                        <li style={{ marginBottom: '10px' }}><a href="#">Privacy Policy</a></li>
-                        <li style={{ marginBottom: '10px' }}><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Contact Support</a></li>
+                        <li style={{ marginBottom: '10px' }}><a href="#contact">About Us</a></li>
+                        <li style={{ marginBottom: '10px' }}><a href="#contact">Refund Policy</a></li>
+                        <li style={{ marginBottom: '10px' }}><a href="#contact">Privacy Policy</a></li>
+                        <li style={{ marginBottom: '10px' }}><a href="#contact">Terms of Service</a></li>
+                        <li><a href="tel:06362902121">Contact Support</a></li>
                     </ul>
                 </div>
 
