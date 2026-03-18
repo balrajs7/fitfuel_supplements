@@ -1,4 +1,5 @@
 import { FiInstagram, FiFacebook, FiYoutube } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -35,6 +36,7 @@ const Footer = () => {
                 <div>
                     <h3 style={{ marginBottom: '20px', fontSize: '1.2rem', color: 'var(--text-primary)' }}>Quick Links</h3>
                     <ul style={{ listStyle: 'none', padding: 0, color: 'var(--text-secondary)' }}>
+                        <li style={{ marginBottom: '10px' }}><Link to="/track-order" style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--accent-green)'} onMouseOut={e => e.target.style.color = 'inherit'}>Track Order</Link></li>
                         <li style={{ marginBottom: '10px' }}><a href="#">About Us</a></li>
                         <li style={{ marginBottom: '10px' }}><a href="#">Refund Policy</a></li>
                         <li style={{ marginBottom: '10px' }}><a href="#">Privacy Policy</a></li>

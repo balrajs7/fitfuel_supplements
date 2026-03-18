@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Product from './pages/Product';
 import Checkout from './pages/Checkout';
+import TrackOrder from './pages/TrackOrder';
 import WhatsAppButton from './components/WhatsAppButton';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<Product />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/track-order" element={<TrackOrder />} />
           </Routes>
         </main>
         <WhatsAppButton />
